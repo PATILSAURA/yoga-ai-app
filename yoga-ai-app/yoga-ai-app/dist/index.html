@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Yoga AI App</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga AI App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f5f5dc;
+            color: #4a4a4a;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center">
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Yoga AI</h1>
+        <p class="text-sm text-center mb-6">Enter your health concern, and we'll suggest the best yoga asanas for you.</p>
+        
+        <textarea id="problemInput" class="w-full h-24 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" placeholder="Describe your issue (e.g., back pain, stress)..."></textarea>
+        <button id="getAsanasButton" class="w-full bg-gray-700 text-white py-2 mt-4 rounded hover:bg-gray-800 transition">Get Suggestions</button>
+
+        <div id="suggestions" class="mt-6 hidden">
+            <h2 class="text-lg font-semibold mb-2">Suggested Asanas:</h2>
+            <ul class="list-disc list-inside space-y-2" id="asanasList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const problemInput = document.getElementById('problemInput');
+        const getAsanasButton = document.getElementById('getAsanasButton');
+        const suggestionsDiv = document.getElementById('suggestions');
+        const asanasList = document.getElementById('asanasList');
+
+        const yogaSuggestions = {
+            "back pain": ["Child's Pose (Balasana)", "Cat-Cow Pose (Marjaryasana-Bitilasana)", "Bridge Pose (Setu Bandhasana)"],
+            "stress": ["Corpse Pose (Savasana)", "Standing Forward Bend (Uttanasana)", "Easy Pose (Sukhasana)"],
+            "flexibility": ["Downward Dog (Adho Mukha Svanasana)", "Seated Forward Bend (Paschimottanasana)", "Pigeon Pose (Eka Pada Rajakapotasana)"],
+            "digestion": ["Bow Pose (Dhanurasana)", "Seated Twist (Ardha Matsyendrasana)", "Wind-Relieving Pose (Pavanamuktasana)"],
+            "general": ["Mountain Pose (Tadasana)", "Tree Pose (Vrikshasana)", "Warrior Pose (Virabhadrasana)"]
+        };
+
+        getAsanasButton.addEventListener('click', () => {
+            const problem = problemInput.value.toLowerCase().trim();
+            asanasList.innerHTML = '';
+            let asanas = yogaSuggestions["general"];
+
+            for (const key in yogaSuggestions) {
+                if (problem.includes(key)) {
+                    asanas = yogaSuggestions[key];
+                    break;
+                }
+            }
+
+            asanas.forEach(asana => {
+                const li = document.createElement('li');
+                li.textContent = asana;
+                asanasList.appendChild(li);
+            });
+
+            suggestionsDiv.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
